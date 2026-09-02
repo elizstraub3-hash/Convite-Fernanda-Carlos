@@ -2,7 +2,7 @@
 
 Convite digital (página única) com contagem regressiva, painel de confirmação de presença e mural de fotos.
 
-**Data:** 06 de fevereiro de 2027, às 11h · É da Pam Café Colonial
+**Data:** 06 de fevereiro de 2027, às 10h (chegar 15 min antes) · É da Pam Café Colonial · Café colonial R$ 110,00/pessoa, pago no local
 
 ## Imagens usadas (coloque na mesma pasta do index.html)
 

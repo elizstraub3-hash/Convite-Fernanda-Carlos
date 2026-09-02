@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Francieli & Carlos Eduardo — Nosso Casamento</title>
-<meta name="description" content="Convite de casamento de Francieli e Carlos Eduardo — 06 de fevereiro, 11h, É da Pam Café Colonial." />
+<meta name="description" content="Convite de casamento de Francieli e Carlos Eduardo — 06 de fevereiro, 10h, É da Pam Café Colonial." />
 
 <!-- Prévia ao compartilhar (WhatsApp, Instagram, Facebook...) -->
 <meta property="og:type" content="website" />
@@ -12,7 +12,7 @@
 <meta property="og:locale" content="pt_BR" />
 <meta property="og:url" content="https://convitefrancarlos.vercel.app/" />
 <meta property="og:title" content="Você recebeu um convite especial 🤍" />
-<meta property="og:description" content="Francieli & Carlos Eduardo vão se casar — 06 de fevereiro, 11h, no É da Pam Café Colonial. Toque para abrir o convite e confirmar presença." />
+<meta property="og:description" content="Francieli & Carlos Eduardo vão se casar — 06 de fevereiro, 10h, no É da Pam Café Colonial. Toque para abrir o convite e confirmar presença." />
 <meta property="og:image" content="https://convitefrancarlos.vercel.app/og-image.jpg" />
 <meta property="og:image:secure_url" content="https://convitefrancarlos.vercel.app/og-image.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
@@ -21,7 +21,7 @@
 <meta property="og:image:alt" content="Convite de casamento de Francieli e Carlos Eduardo" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Você recebeu um convite especial 🤍" />
-<meta name="twitter:description" content="Francieli & Carlos Eduardo vão se casar — 06 de fevereiro, 11h, no É da Pam Café Colonial." />
+<meta name="twitter:description" content="Francieli & Carlos Eduardo vão se casar — 06 de fevereiro, 10h, no É da Pam Café Colonial." />
 <meta name="twitter:image" content="https://convitefrancarlos.vercel.app/og-image.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -123,6 +123,12 @@
   .hero > *{position:relative;z-index:3}
   .hero .capa-bg,.hero .capa-frame{z-index:0}
   .hero .capa-frame{z-index:1}
+  /* degradê de acabamento no rodapé da capa */
+  .hero::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:20%;
+    z-index:2;pointer-events:none;
+    background:linear-gradient(to bottom, rgba(246,241,231,0) 0%, rgba(246,241,231,.65) 55%, var(--creme) 100%);
+  }
   .hero .eyebrow{
     margin-bottom:1.5rem;
     font-size:clamp(.92rem,2.9vw,1.15rem);
@@ -283,6 +289,20 @@
     letter-spacing:.18em;text-transform:uppercase;transition:.25s;
   }
   .evento .btn-mapa:hover{background:#c79a56;transform:translateY(-2px)}
+  /* avisos importantes */
+  .evento .avisos{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
+    max-width:680px;margin:1.6rem auto 0;
+  }
+  .evento .aviso{
+    display:flex;align-items:center;gap:.9rem;text-align:left;
+    background:rgba(255,255,255,.09);border:1px solid rgba(231,220,199,.30);
+    border-radius:14px;padding:1.1rem 1.3rem;
+  }
+  .evento .aviso svg{width:26px;height:26px;color:var(--areia);flex:none}
+  .evento .aviso p{font-size:.9rem;line-height:1.45;color:var(--areia)}
+  .evento .aviso b{color:#fff;font-weight:500}
+  @media(max-width:640px){.evento .avisos{grid-template-columns:1fr;max-width:340px}}
 
   /* ---------- RSVP ---------- */
   .rsvp{background:transparent}
@@ -579,7 +599,7 @@
     <span class="bar"></span>
     <span>2027</span>
     <span class="bar"></span>
-    <span>11H</span>
+    <span>10H</span>
   </div>
 
   <div class="scroll-ind">
@@ -661,8 +681,8 @@
       </div>
       <div class="card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        <div class="k">11h00</div>
-        <div class="v">Recepção a partir das 11h</div>
+        <div class="k">10h00</div>
+        <div class="v">Chegue 15 min antes</div>
       </div>
       <div class="card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.4 7-11a7 7 0 10-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -670,6 +690,18 @@
         <div class="v">Café Colonial</div>
       </div>
     </div>
+
+    <div class="avisos reveal">
+      <div class="aviso">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <p><b>Chegue com 15 minutos de antecedência.</b><br>A cerimônia começa pontualmente às 10h.</p>
+      </div>
+      <div class="aviso">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
+        <p><b>Café colonial pago individualmente no local.</b><br>R$ 110,00 por pessoa, no É da Pam.</p>
+      </div>
+    </div>
+
     <a class="btn-mapa" href="https://www.google.com/maps/search/?api=1&query=%C3%89+da+Pam+Caf%C3%A9+Colonial" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.4 7-11a7 7 0 10-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
       Ver no mapa
@@ -783,7 +815,7 @@
   /* ============ CONFIG ============ */
   // WhatsApp do casal (só números, com DDI 55 + DDD). (41) 9 8535-0234
   var WHATSAPP = "5541985350234";
-  var DATA_CASAMENTO = new Date("2027-02-06T11:00:00-03:00");
+  var DATA_CASAMENTO = new Date("2027-02-06T10:00:00-03:00");
 
   /* ============ MÚSICA (toca ao abrir) ============ */
   (function(){

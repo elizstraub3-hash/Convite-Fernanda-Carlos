@@ -545,9 +545,10 @@
 
     .historia .texto{padding:1.5rem 1.2rem;font-size:1.1rem}
 
-    /* mural: fotos empilhadas */
-    .mural .fotos{grid-template-columns:1fr;gap:1.1rem;max-width:330px}
-    .mural figure{aspect-ratio:4/5}
+    /* mural: duas fotos lado a lado */
+    .mural .fotos{grid-template-columns:1fr 1fr;gap:.6rem}
+    .mural figure{aspect-ratio:3/4}
+    .mural figure::after{inset:7px;border-radius:8px}
     .mural .legenda-foto{font-size:1.1rem}
 
     /* evento: cards empilhados */

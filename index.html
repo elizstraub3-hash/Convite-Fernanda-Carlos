@@ -99,34 +99,15 @@
     position:relative;min-height:100svh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:5rem 1.5rem;
-    background:var(--creme);
+    background:transparent;
     overflow:hidden;
-  }
-  /* pattern atrás da capa */
-  .hero .capa-bg{
-    position:absolute;inset:0;z-index:0;pointer-events:none;
-    background:url('fundo-flores.png') center center / cover no-repeat;
-  }
-  /* moldura enviada, com blend para o pattern aparecer no centro claro */
-  .hero .capa-frame{
-    position:absolute;inset:0;z-index:1;pointer-events:none;
-    width:100%;height:100%;object-fit:cover;object-position:center;
-    mix-blend-mode:multiply;
   }
   /* fundo branco em degradê atrás das informações */
   .hero::before{
     content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-    background:radial-gradient(64% 54% at 50% 47%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.82) 38%, rgba(255,255,255,.4) 66%, rgba(255,255,255,0) 100%);
+    background:radial-gradient(64% 54% at 50% 47%, rgba(255,255,255,.9) 0%, rgba(255,255,255,.7) 38%, rgba(255,255,255,.3) 66%, rgba(255,255,255,0) 100%);
   }
   .hero > *{position:relative;z-index:3}
-  .hero .capa-bg,.hero .capa-frame{z-index:0}
-  .hero .capa-frame{z-index:1}
-  /* degradê de acabamento no rodapé da capa */
-  .hero::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:20%;
-    z-index:2;pointer-events:none;
-    background:linear-gradient(to bottom, rgba(246,241,231,0) 0%, rgba(246,241,231,.65) 55%, var(--creme) 100%);
-  }
   .hero .eyebrow{
     margin-bottom:1.5rem;
     font-size:clamp(.92rem,2.9vw,1.15rem);
@@ -624,8 +605,6 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero">
-  <div class="capa-bg" aria-hidden="true"></div>
-  <img class="capa-frame" src="capa.png" alt="" aria-hidden="true" onerror="this.style.display='none'" />
   <button class="btn-musica pulsar" id="btn-musica" type="button" aria-label="Ligar ou desligar a música">
     <svg class="ico-mudo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/><line x1="3" y1="3" x2="21" y2="21" stroke-width="1.6"/></svg>
     <svg class="ico-som" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>

@@ -189,7 +189,21 @@
     padding:clamp(1.8rem,5vw,3rem);
     box-shadow:0 16px 40px rgba(71,89,76,.10);
   }
+  .historia .texto .eyebrow{margin-bottom:.7rem}
+  .historia .texto .titulo-card{margin-bottom:0}
+  .historia .texto .divisor{margin:1.3rem auto 1.9rem}
   .historia .texto p{margin-bottom:1.4rem}
+
+  /* plaquinha translúcida atrás dos títulos que ficam sobre o pattern */
+  .bloco-titulo{
+    display:inline-block;
+    background:rgba(247,242,233,.85);
+    border:1px solid rgba(176,137,78,.24);
+    border-radius:16px;
+    padding:1.2rem 2.2rem;
+    box-shadow:0 10px 30px rgba(71,89,76,.08);
+  }
+  .bloco-titulo .titulo-sec{margin-top:.2rem}
   .historia .destaque{
     font-style:italic;color:var(--terracota);font-size:1.25em;
   }
@@ -299,6 +313,85 @@
     font-family:'Cormorant Garamond',serif;font-size:1.2rem;padding:1.5rem;
   }
   .rsvp .obs{font-size:.74rem;color:var(--tinta-suave);text-align:center;margin-top:1.2rem;line-height:1.6}
+
+  /* mensagem de agradecimento pós-confirmação */
+  .obrigado{
+    margin-top:1.6rem;text-align:center;
+    background:rgba(71,89,76,.07);border:1px solid rgba(176,137,78,.35);
+    border-radius:16px;padding:1.6rem;
+  }
+  .obrigado svg{width:38px;height:38px;color:var(--verde);margin:0 auto .6rem;
+    border:2px solid var(--dourado);border-radius:50%;padding:6px}
+  .obrigado p{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--verde)}
+  .obrigado span{font-family:'Jost';font-size:.8rem;color:var(--tinta-suave)}
+
+  /* ---------- MURAL DE RECADOS (slides) ---------- */
+  .recados{background:transparent;text-align:center}
+  .slider{
+    position:relative;max-width:640px;margin:2.6rem auto 0;
+  }
+  .slides{position:relative;overflow:hidden;border-radius:20px}
+  .slides-track{display:flex;transition:transform .5s ease}
+  .slide{
+    flex:0 0 100%;box-sizing:border-box;padding:.4rem;
+  }
+  .slide .cartao{
+    background:rgba(255,255,255,.9);border:1px solid rgba(176,137,78,.32);
+    border-radius:18px;padding:clamp(1.8rem,5vw,2.8rem);
+    box-shadow:0 16px 40px rgba(71,89,76,.12);
+    min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;
+  }
+  .slide .aspas{font-family:'Parisienne',cursive;color:var(--dourado);font-size:2.6rem;line-height:.4;height:1.2rem}
+  .slide .msg{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.2rem,3.4vw,1.5rem);color:var(--tinta);line-height:1.6}
+  .slide .autor{font-family:'Marcellus',serif;color:var(--verde);font-size:1rem;letter-spacing:.08em}
+  .slide .autor::before{content:"— "}
+  .slider .nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;border:1px solid rgba(176,137,78,.5);
+    background:rgba(247,242,233,.9);color:var(--verde);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:.2s;z-index:2;
+  }
+  .slider .nav:hover{background:var(--verde);color:#fff}
+  .slider .nav.prev{left:-8px}
+  .slider .nav.next{right:-8px}
+  .slider .nav svg{width:20px;height:20px}
+  .dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.3rem}
+  .dots button{
+    width:9px;height:9px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--areia);padding:0;transition:.2s;
+  }
+  .dots button.on{background:var(--dourado);transform:scale(1.25)}
+  .recados .conte{
+    margin-top:2rem;font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:var(--tinta-suave);font-size:1.15rem;
+  }
+  .recados .btn-recado{
+    display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;cursor:pointer;
+    background:var(--verde);color:#fff;border:none;
+    padding:.85rem 1.9rem;border-radius:40px;font-family:'Jost';font-size:.76rem;
+    letter-spacing:.16em;text-transform:uppercase;transition:.25s;
+  }
+  .recados .btn-recado:hover{background:#3a4a3e;transform:translateY(-2px)}
+  .form-recado{
+    max-width:520px;margin:1.8rem auto 0;text-align:left;
+    background:#fff;border:1px solid var(--areia);border-radius:18px;
+    padding:clamp(1.5rem,5vw,2.4rem);box-shadow:0 18px 40px rgba(71,89,76,.10);
+  }
+  .form-recado.hidden{display:none}
+  .form-recado label{display:block;text-transform:uppercase;letter-spacing:.14em;
+    font-size:.66rem;color:var(--tinta-suave);margin-bottom:.4rem}
+  .form-recado input,.form-recado textarea{
+    width:100%;padding:.85rem 1rem;border:1px solid var(--areia);border-radius:10px;
+    background:var(--creme);font-family:'Jost';font-size:.95rem;color:var(--tinta);
+    margin-bottom:1.2rem;outline:none;transition:border-color .2s;resize:vertical;
+  }
+  .form-recado input:focus,.form-recado textarea:focus{border-color:var(--dourado)}
+  .form-recado .btn{
+    width:100%;border:none;cursor:pointer;background:var(--verde);color:#fff;
+    padding:1rem;border-radius:40px;font-family:'Jost';font-size:.78rem;
+    letter-spacing:.18em;text-transform:uppercase;transition:.25s;
+  }
+  .form-recado .btn:hover{background:#3a4a3e}
 
   /* ---------- FOOTER ---------- */
   footer{
@@ -414,14 +507,12 @@
 <!-- ================= HISTÓRIA ================= -->
 <section class="historia">
   <div class="wrap center">
-    <div class="reveal">
-      <p class="eyebrow">Nossa história</p>
-      <h2 class="titulo-sec">O amor encontrou seu tempo</h2>
-    </div>
-    <div class="divisor" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C7 17 2 13 2 8.5 2 5.4 4.4 3 7.5 3 9.4 3 11 4 12 5.5 13 4 14.6 3 16.5 3 19.6 3 22 5.4 22 8.5 22 13 17 17 12 21Z"/></svg>
-    </div>
     <div class="texto reveal">
+      <p class="eyebrow">Nossa história</p>
+      <h2 class="titulo-sec titulo-card">O amor encontrou seu tempo</h2>
+      <div class="divisor" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C7 17 2 13 2 8.5 2 5.4 4.4 3 7.5 3 9.4 3 11 4 12 5.5 13 4 14.6 3 16.5 3 19.6 3 22 5.4 22 8.5 22 13 17 17 12 21Z"/></svg>
+      </div>
       <p>Entre sonhos, desafios, conquistas e tantos momentos compartilhados, aprendemos que o amor verdadeiro não está apenas nas grandes promessas, mas na escolha de caminhar juntos todos os dias.</p>
       <p>Foi Deus quem guiou nossos passos, fortaleceu nosso amor e nos permitiu construir uma família, uma história e um lar.</p>
       <p>E agora, depois de tantos anos, sentimos que chegou o momento de celebrar diante de nossas famílias e daqueles que amamos a promessa que, há muito tempo, já vive em nossos corações.</p>
@@ -438,8 +529,10 @@
 <section class="mural">
   <div class="wrap center">
     <div class="reveal">
-      <p class="eyebrow">Nossos momentos</p>
-      <h2 class="titulo-sec">Um pedacinho da nossa jornada</h2>
+      <div class="bloco-titulo">
+        <p class="eyebrow">Nossos momentos</p>
+        <h2 class="titulo-sec">Um pedacinho da nossa jornada</h2>
+      </div>
     </div>
     <!-- Por enquanto, uma foto. Para adicionar mais, é só duplicar o <figure>. -->
     <div class="fotos reveal">
@@ -486,10 +579,9 @@
 <section class="rsvp">
   <div class="wrap">
     <div class="center reveal">
-      <p class="eyebrow">Confirmação de presença</p>
-      <h2 class="titulo-sec">Faça parte deste dia</h2>
-      <div class="divisor" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C7 17 2 13 2 8.5 2 5.4 4.4 3 7.5 3 9.4 3 11 4 12 5.5 13 4 14.6 3 16.5 3 19.6 3 22 5.4 22 8.5 22 13 17 17 12 21Z"/></svg>
+      <div class="bloco-titulo">
+        <p class="eyebrow">Confirmação de presença</p>
+        <h2 class="titulo-sec">Faça parte deste dia</h2>
       </div>
     </div>
 
@@ -516,20 +608,65 @@
       <button class="btn" type="submit">Confirmar presença</button>
     </form>
 
-    <!-- Painel de confirmados -->
-    <div class="painel reveal">
-      <div class="cabecalho">
-        <span class="total">Já confirmaram: <b id="total-pessoas">0</b> pessoa(s)</span>
-      </div>
-      <div class="lista" id="lista-confirmados">
-        <div class="vazio">Seja o primeiro a confirmar presença 🤍</div>
-      </div>
+    <!-- Mensagem de agradecimento (aparece após confirmar) -->
+    <div class="obrigado" id="obrigado" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>
+      <p>Confirmação enviada! Obrigado 🤍<br><span>Sua resposta chegou ao WhatsApp dos noivos.</span></p>
     </div>
 
     <p class="obs">
-      As confirmações ficam salvas neste dispositivo e são enviadas ao casal pelo WhatsApp.<br>
-      Ao confirmar, o WhatsApp abrirá automaticamente com sua mensagem pronta.
+      Ao confirmar, o WhatsApp dos noivos abre automaticamente com a sua mensagem pronta — é só enviar.
     </p>
+
+    <!-- PAINEL PRIVADO DO CASAL — oculto para os convidados. Acesse com o link .../#casal -->
+    <div class="painel painel-casal" id="painel-casal" hidden>
+      <div class="cabecalho">
+        <span class="total">Confirmados (visível só para vocês): <b id="total-pessoas">0</b> pessoa(s)</span>
+      </div>
+      <div class="lista" id="lista-confirmados">
+        <div class="vazio">Ainda sem confirmações neste dispositivo 🤍</div>
+      </div>
+      <p class="obs">Painel privado do casal. Este link (#casal) não aparece para os convidados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MURAL DE RECADOS ================= -->
+<section class="recados">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="bloco-titulo">
+        <p class="eyebrow">Mural de recados</p>
+        <h2 class="titulo-sec">Deixe seu carinho</h2>
+      </div>
+    </div>
+
+    <div class="slider reveal">
+      <button class="nav prev" id="rec-prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="slides">
+        <div class="slides-track" id="slides-track"><!-- slides via JS --></div>
+      </div>
+      <button class="nav next" id="rec-next" aria-label="Próximo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="dots" id="rec-dots"></div>
+
+    <p class="conte reveal">Quer deixar um recado para os noivos?</p>
+    <button class="btn-recado reveal" id="abrir-recado" type="button">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Escrever recado
+    </button>
+
+    <form class="form-recado hidden reveal" id="form-recado">
+      <label for="rec-nome">Seu nome</label>
+      <input type="text" id="rec-nome" placeholder="Como você quer assinar" required />
+      <label for="rec-msg">Sua mensagem</label>
+      <textarea id="rec-msg" rows="3" placeholder="Escreva um recado carinhoso para Francieli e Carlos 🤍" required></textarea>
+      <button class="btn" type="submit">Enviar recado aos noivos</button>
+    </form>
   </div>
 </section>
 
@@ -565,7 +702,11 @@
   }
   tick();var timer=setInterval(tick,1000);
 
-  /* ============ RSVP + PAINEL ============ */
+  /* ============ util ============ */
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){
+    return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  /* ============ RSVP + PAINEL PRIVADO ============ */
   var KEY='rsvp_francieli_carlos';
   function ler(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
   function salvar(l){try{localStorage.setItem(KEY,JSON.stringify(l))}catch(e){}}
@@ -575,14 +716,20 @@
     var lista=document.getElementById('lista-confirmados');
     var total=l.reduce(function(a,x){return a+(parseInt(x.qtd)||1)},0);
     document.getElementById('total-pessoas').textContent=total;
-    if(!l.length){lista.innerHTML='<div class="vazio">Seja o primeiro a confirmar presença 🤍</div>';return;}
+    if(!l.length){lista.innerHTML='<div class="vazio">Ainda sem confirmações neste dispositivo 🤍</div>';return;}
     lista.innerHTML=l.map(function(x){
       return '<div class="item"><span class="nome">'+esc(x.nome)+'</span>'+
              '<span class="qtd">'+x.qtd+' '+(x.qtd>1?'pessoas':'pessoa')+'</span></div>';
     }).join('');
   }
-  function esc(s){return String(s).replace(/[&<>"']/g,function(c){
-    return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  // Painel só aparece para o casal via link secreto  .../#casal
+  function togglePainel(){
+    var p=document.getElementById('painel-casal');
+    if(p) p.hidden = (location.hash.toLowerCase()!=='#casal');
+  }
+  window.addEventListener('hashchange',togglePainel);
+  togglePainel();
 
   document.getElementById('form-rsvp').addEventListener('submit',function(e){
     e.preventDefault();
@@ -592,13 +739,8 @@
     var vai=pres.indexOf('Sim')===0;
     if(!nome)return;
 
-    if(vai){
-      var l=ler();
-      l.push({nome:nome,qtd:qtd,vai:true});
-      salvar(l);render();
-    }
+    if(vai){ var l=ler(); l.push({nome:nome,qtd:qtd,vai:true}); salvar(l); render(); }
 
-    // Mensagem para o WhatsApp do casal
     var msg='Olá! Confirmação de presença no casamento da Francieli e Carlos Eduardo 🤍%0A%0A'+
             'Nome: '+encodeURIComponent(nome)+'%0A'+
             'Presença: '+encodeURIComponent(pres)+'%0A'+
@@ -606,8 +748,60 @@
     window.open('https://wa.me/'+WHATSAPP+'?text='+msg,'_blank');
 
     this.reset();
+    document.getElementById('obrigado').hidden=false;
   });
   render();
+
+  /* ============ MURAL DE RECADOS (slides) ============ */
+  var RKEY='recados_francieli_carlos';
+  var seed=[
+    {msg:'Que a história de vocês continue sendo escrita com muito amor e a bênção de Deus.',autor:'Com carinho'},
+    {msg:'Felicidades ao casal! Que esse amor de 14 anos floresça ainda mais a cada dia.',autor:'Família'},
+    {msg:'Desejo a vocês uma vida cheia de cumplicidade, fé e muitos sorrisos.',autor:'Amigos'}
+  ];
+  function lerR(){try{var a=JSON.parse(localStorage.getItem(RKEY));return a&&a.length?a:seed.slice()}catch(e){return seed.slice()}}
+  function salvarR(a){try{localStorage.setItem(RKEY,JSON.stringify(a))}catch(e){}}
+
+  var recados=lerR(), idx=0;
+  var track=document.getElementById('slides-track'), dotsBox=document.getElementById('rec-dots');
+
+  function renderRec(){
+    track.innerHTML=recados.map(function(r){
+      return '<div class="slide"><div class="cartao"><div class="aspas">&rdquo;</div>'+
+             '<p class="msg">'+esc(r.msg)+'</p><p class="autor">'+esc(r.autor)+'</p></div></div>';
+    }).join('');
+    dotsBox.innerHTML=recados.map(function(_,i){return '<button data-i="'+i+'" aria-label="Recado '+(i+1)+'"></button>';}).join('');
+    go(Math.min(idx,recados.length-1));
+  }
+  function go(i){
+    idx=(i+recados.length)%recados.length;
+    track.style.transform='translateX(-'+(idx*100)+'%)';
+    Array.prototype.forEach.call(dotsBox.children,function(d,j){d.classList.toggle('on',j===idx);});
+  }
+  var auto=setInterval(function(){go(idx+1);},6000);
+  function resetAuto(){clearInterval(auto);auto=setInterval(function(){go(idx+1);},6000);}
+
+  document.getElementById('rec-prev').onclick=function(){go(idx-1);resetAuto();};
+  document.getElementById('rec-next').onclick=function(){go(idx+1);resetAuto();};
+  dotsBox.addEventListener('click',function(e){var b=e.target.closest('button');if(b){go(+b.dataset.i);resetAuto();}});
+
+  document.getElementById('abrir-recado').onclick=function(){
+    var f=document.getElementById('form-recado');
+    f.classList.toggle('hidden');
+    if(!f.classList.contains('hidden')) f.querySelector('input').focus();
+  };
+  document.getElementById('form-recado').addEventListener('submit',function(e){
+    e.preventDefault();
+    var nome=document.getElementById('rec-nome').value.trim();
+    var m=document.getElementById('rec-msg').value.trim();
+    if(!nome||!m)return;
+    recados.unshift({msg:m,autor:nome});
+    salvarR(recados); idx=0; renderRec();
+    var t='Recado para o mural do casamento 🤍%0A%0A%22'+encodeURIComponent(m)+'%22%0A— '+encodeURIComponent(nome);
+    window.open('https://wa.me/'+WHATSAPP+'?text='+t,'_blank');
+    this.reset(); this.classList.add('hidden');
+  });
+  renderRec();
 
   /* ============ REVEAL ao rolar ============ */
   var io=new IntersectionObserver(function(entries){

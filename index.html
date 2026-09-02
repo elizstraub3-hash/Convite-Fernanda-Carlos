@@ -100,7 +100,12 @@
   .hero .leaf{position:absolute;opacity:.5;pointer-events:none}
   .hero .leaf.tl{top:-40px;left:-50px;width:230px;transform:rotate(8deg)}
   .hero .leaf.br{bottom:-50px;right:-55px;width:250px;transform:rotate(190deg)}
-  .hero .eyebrow{margin-bottom:1.4rem}
+  .hero .eyebrow{
+    margin-bottom:1.5rem;
+    font-size:clamp(.92rem,2.9vw,1.15rem);
+    letter-spacing:.5em;
+    color:var(--dourado);
+  }
   .hero .amp{
     font-family:'Parisienne',cursive;color:var(--dourado);
     font-size:clamp(2.4rem,6vw,3.6rem);margin:.2rem 0;line-height:.8;
@@ -116,12 +121,18 @@
     font-style:italic;letter-spacing:.02em;
   }
   .hero .data-hero{
-    margin-top:2.4rem;display:inline-flex;align-items:center;gap:1.1rem;
+    margin-top:2.6rem;display:inline-flex;align-items:center;gap:1.3rem;
     font-family:'Marcellus',serif;color:var(--verde);
-    font-size:clamp(1rem,3vw,1.15rem);letter-spacing:.14em;
+    font-size:clamp(1.05rem,3vw,1.25rem);letter-spacing:.16em;
+    background:rgba(255,255,255,.72);
+    border:1px solid rgba(176,137,78,.45);
+    border-radius:16px;
+    padding:1rem 1.9rem;
+    box-shadow:0 12px 30px rgba(71,89,76,.12);
+    backdrop-filter:blur(3px);
   }
   .hero .data-hero span{white-space:nowrap}
-  .hero .data-hero .bar{width:1px;height:38px;background:var(--dourado);opacity:.6}
+  .hero .data-hero .bar{width:1px;height:34px;background:var(--dourado);opacity:.55}
 
   .scroll-ind{
     position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
@@ -302,10 +313,50 @@
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
   .reveal.on{opacity:1;transform:none}
 
+  /* ---------- MOBILE ---------- */
   @media(max-width:640px){
-    .rsvp .linha{grid-template-columns:1fr}
+    body::before{background-size:300px auto;opacity:.42}
+
+    .hero{padding:4rem 1.2rem;min-height:100svh}
+    .hero .nomes{font-size:clamp(2.1rem,11vw,3rem)}
+    .hero .eyebrow{font-size:.86rem;letter-spacing:.4em}
+    .hero .subtitulo{font-size:1.1rem;margin-top:1.4rem}
+    .logo-badge{width:130px;margin-bottom:1.3rem}
+
+    /* card da data: continua em linha, mais compacto */
+    .hero .data-hero{
+      margin-top:2rem;gap:.85rem;padding:.85rem 1.15rem;
+      font-size:1rem;letter-spacing:.1em;
+    }
+    .hero .data-hero .bar{height:26px}
+
+    section{padding:3.4rem 1.2rem}
+    .titulo-sec{font-size:1.7rem}
+
+    .contagem .grid{gap:.5rem;max-width:340px}
+    .contagem .box{padding:1rem .3rem;border-radius:11px}
+    .contagem .lbl{font-size:.54rem;letter-spacing:.12em}
+
+    .historia .texto{padding:1.5rem 1.2rem;font-size:1.1rem}
+
+    /* mural: fotos empilhadas e maiores */
+    .mural .fotos{grid-template-columns:1fr;gap:1.2rem;max-width:340px;margin-left:auto;margin-right:auto}
+    .mural figure{aspect-ratio:4/3}
     .mural figure:nth-child(2){transform:none}
-    .contagem .box{padding:1rem .3rem}
+
+    /* evento: cards empilhados */
+    .evento .cards{grid-template-columns:1fr;max-width:340px;gap:.8rem}
+    .evento .card{display:flex;align-items:center;gap:1rem;text-align:left;padding:1.1rem 1.3rem}
+    .evento .card svg{margin:0;flex:none}
+
+    .rsvp .linha{grid-template-columns:1fr}
+    .rsvp .card-form{padding:1.5rem 1.2rem}
+    footer .versiculo{font-size:1.05rem}
+  }
+
+  @media(max-width:380px){
+    .hero .data-hero{gap:.6rem;padding:.75rem .9rem;font-size:.9rem}
+    .hero .nomes{font-size:2rem}
   }
 </style>
 </head>

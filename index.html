@@ -333,6 +333,22 @@
   .obrigado p{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--verde)}
   .obrigado span{font-family:'Jost';font-size:.8rem;color:var(--tinta-suave)}
 
+  /* ---------- MOLDURA DECORATIVA (fixa) ---------- */
+  :root{--moldura:18px}
+  .moldura{
+    position:fixed;inset:var(--moldura);z-index:60;pointer-events:none;
+    border:1.5px solid rgba(176,137,78,.62);border-radius:6px;
+  }
+  .moldura::after{
+    content:"";position:absolute;inset:5px;border-radius:3px;
+    border:1px solid rgba(176,137,78,.34);
+  }
+  .canto{position:absolute;width:46px;height:46px;color:var(--dourado)}
+  .canto.tl{top:-3px;left:-3px}
+  .canto.tr{top:-3px;right:-3px;transform:scaleX(-1)}
+  .canto.bl{bottom:-3px;left:-3px;transform:scaleY(-1)}
+  .canto.br{bottom:-3px;right:-3px;transform:scale(-1,-1)}
+
   /* ---------- MURAL DE RECADOS (slides) ---------- */
   .recados{background:transparent;text-align:center}
   .slider{
@@ -419,6 +435,8 @@
 
   /* ---------- MOBILE ---------- */
   @media(max-width:640px){
+    :root{--moldura:9px}
+    .canto{width:32px;height:32px}
     body::before{background-size:300px auto;opacity:.42}
 
     .hero{padding:4rem 1.2rem;min-height:100svh}
@@ -465,6 +483,34 @@
 </style>
 </head>
 <body>
+
+<!-- ================= MOLDURA DECORATIVA ================= -->
+<div class="moldura" aria-hidden="true">
+  <svg class="canto tl" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M4 20 C4 11 11 4 20 4" />
+    <path d="M12 4 C28 4 33 9 33 20 C33 27 27 30 22 27 C18 25 19 19 24 20" />
+    <path d="M4 12 C4 28 9 33 20 33 C27 33 30 27 27 22 C25 18 19 19 20 24" />
+    <circle cx="6" cy="6" r="2" fill="currentColor" stroke="none" />
+  </svg>
+  <svg class="canto tr" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M4 20 C4 11 11 4 20 4" />
+    <path d="M12 4 C28 4 33 9 33 20 C33 27 27 30 22 27 C18 25 19 19 24 20" />
+    <path d="M4 12 C4 28 9 33 20 33 C27 33 30 27 27 22 C25 18 19 19 20 24" />
+    <circle cx="6" cy="6" r="2" fill="currentColor" stroke="none" />
+  </svg>
+  <svg class="canto bl" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M4 20 C4 11 11 4 20 4" />
+    <path d="M12 4 C28 4 33 9 33 20 C33 27 27 30 22 27 C18 25 19 19 24 20" />
+    <path d="M4 12 C4 28 9 33 20 33 C27 33 30 27 27 22 C25 18 19 19 20 24" />
+    <circle cx="6" cy="6" r="2" fill="currentColor" stroke="none" />
+  </svg>
+  <svg class="canto br" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <path d="M4 20 C4 11 11 4 20 4" />
+    <path d="M12 4 C28 4 33 9 33 20 C33 27 27 30 22 27 C18 25 19 19 24 20" />
+    <path d="M4 12 C4 28 9 33 20 33 C27 33 30 27 27 22 C25 18 19 19 20 24" />
+    <circle cx="6" cy="6" r="2" fill="currentColor" stroke="none" />
+  </svg>
+</div>
 
 <!-- ================= HERO ================= -->
 <header class="hero">

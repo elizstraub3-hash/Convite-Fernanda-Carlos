@@ -101,18 +101,28 @@
     position:relative;min-height:100svh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:5rem 1.5rem;
-    background:#efe7d8 url('capa.png') center center / cover no-repeat;
+    background:var(--creme);
     overflow:hidden;
   }
-  /* véu suave para dar legibilidade ao conteúdo sobre a moldura */
-  .hero::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(58% 46% at 50% 44%, rgba(249,245,238,.78) 0%, rgba(249,245,238,.35) 60%, transparent 100%);
+  /* pattern atrás da capa */
+  .hero .capa-bg{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:url('fundo.png') repeat;background-size:420px auto;opacity:.5;
   }
-  .hero > *{position:relative;z-index:1}
-  .hero .leaf{position:absolute;opacity:.5;pointer-events:none}
-  .hero .leaf.tl{top:-40px;left:-50px;width:230px;transform:rotate(8deg)}
-  .hero .leaf.br{bottom:-50px;right:-55px;width:250px;transform:rotate(190deg)}
+  /* moldura enviada, com blend para o pattern aparecer no centro claro */
+  .hero .capa-frame{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    width:100%;height:100%;object-fit:cover;object-position:center;
+    mix-blend-mode:multiply;
+  }
+  /* véu suave para dar legibilidade ao conteúdo */
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(56% 44% at 50% 44%, rgba(249,245,238,.72) 0%, rgba(249,245,238,.30) 60%, transparent 100%);
+  }
+  .hero > *{position:relative;z-index:3}
+  .hero .capa-bg,.hero .capa-frame{z-index:0}
+  .hero .capa-frame{z-index:1}
   .hero .eyebrow{
     margin-bottom:1.5rem;
     font-size:clamp(.92rem,2.9vw,1.15rem);
@@ -521,6 +531,8 @@
 
 <!-- ================= HERO ================= -->
 <header class="hero">
+  <div class="capa-bg" aria-hidden="true"></div>
+  <img class="capa-frame" src="capa.png" alt="" aria-hidden="true" onerror="this.style.display='none'" />
   <img src="logo.png" class="logo-selo" alt="Monograma Francieli e Carlos Eduardo" onerror="this.style.display='none'" />
   <p class="eyebrow">Vamos nos casar</p>
   <h1 class="nomes">Francieli</h1>

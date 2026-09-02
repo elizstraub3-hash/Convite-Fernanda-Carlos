@@ -4,17 +4,30 @@ Convite digital (página única) com contagem regressiva, painel de confirmaçã
 
 **Data:** 06 de fevereiro de 2027, às 11h · É da Pam Café Colonial
 
+## Imagens usadas (coloque na mesma pasta do index.html)
+
+| Arquivo      | O que é                        |
+|--------------|--------------------------------|
+| `logo.png`   | Logo do casal (aparece no topo)|
+| `fundo.png`  | Pattern do fundo claro         |
+| `foto1.jpg`  | Mural — foto 1                 |
+| `foto2.jpg`  | Mural — foto 2                 |
+| `foto3.jpg`  | Mural — foto 3                 |
+
+> O código já referencia esses nomes. Se um arquivo não existir, ele simplesmente não aparece (sem quebrar o layout).
+
 ## Como personalizar
 
-Abra o arquivo `index.html` e ajuste 2 coisas:
-
-### 1. WhatsApp do casal (para receber as confirmações)
-No final do arquivo, dentro do `<script>`, troque o número:
+### WhatsApp do casal (já configurado: (41) 9 8535-0234)
+No final do `index.html`, dentro do `<script>`:
 ```js
-var WHATSAPP = "5551999999999"; // 55 (Brasil) + DDD + número, só dígitos
+var WHATSAPP = "5541985350234"; // 55 (Brasil) + DDD + número, só dígitos
 ```
 
-### 2. As 3 fotos do mural
+### Intensidade do pattern de fundo
+No CSS, em `body::before`, ajuste `opacity:.16` (menor = mais suave).
+
+### As 3 fotos do mural
 Procure por `<!-- Substitua o conteúdo de cada <figure> -->` e troque cada bloco `<div class="ph">...</div>` por uma imagem:
 ```html
 <figure><img src="foto1.jpg" alt="Francieli e Carlos"></figure>

@@ -303,6 +303,28 @@
   .evento .aviso p{font-size:.9rem;line-height:1.45;color:var(--areia)}
   .evento .aviso b{color:#fff;font-weight:500}
   @media(max-width:640px){.evento .avisos{grid-template-columns:1fr;max-width:340px}}
+  /* traje / dress code */
+  .evento .traje{
+    max-width:520px;margin:2rem auto 0;padding:1.5rem 1.6rem;
+    background:rgba(255,255,255,.06);border:1px solid rgba(231,220,199,.30);
+    border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:.85rem;
+  }
+  .evento .traje .lbl{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.26em;font-size:.66rem;color:var(--areia)}
+  .evento .traje p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:#fff;line-height:1.55;margin:0}
+  .evento .traje b{font-style:normal;color:var(--areia);font-weight:500}
+  .evento .traje .swatch{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+    font-size:.62rem;color:var(--areia);
+  }
+  .evento .traje .dot{
+    width:22px;height:22px;border-radius:50%;background:#6b7d47;position:relative;
+    border:1px solid rgba(231,220,199,.6);flex:none;overflow:hidden;
+  }
+  .evento .traje .dot::after{
+    content:"";position:absolute;top:50%;left:-2px;right:-2px;height:2px;
+    background:#e7dcc7;transform:rotate(-45deg);
+  }
 
   /* ---------- RSVP ---------- */
   .rsvp{background:transparent}
@@ -700,6 +722,12 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
         <p><b>Café colonial pago individualmente no local.</b><br>R$ 110,00 por pessoa, no É da Pam.</p>
       </div>
+    </div>
+
+    <div class="traje reveal">
+      <p class="lbl">Trajes</p>
+      <p>Pedimos, com carinho, que os convidados <b>evitem o verde oliva</b> — cor reservada às nossas madrinhas.</p>
+      <span class="swatch"><span class="dot"></span> verde oliva</span>
     </div>
 
     <a class="btn-mapa" href="https://www.google.com/maps/search/?api=1&query=%C3%89+da+Pam+Caf%C3%A9+Colonial" target="_blank" rel="noopener">

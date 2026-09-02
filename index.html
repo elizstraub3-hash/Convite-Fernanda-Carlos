@@ -115,10 +115,10 @@
     width:100%;height:100%;object-fit:cover;object-position:center;
     mix-blend-mode:multiply;
   }
-  /* véu suave para dar legibilidade ao conteúdo */
+  /* fundo branco em degradê atrás das informações */
   .hero::before{
     content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
-    background:radial-gradient(56% 44% at 50% 44%, rgba(249,245,238,.72) 0%, rgba(249,245,238,.30) 60%, transparent 100%);
+    background:radial-gradient(64% 54% at 50% 47%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.82) 38%, rgba(255,255,255,.4) 66%, rgba(255,255,255,0) 100%);
   }
   .hero > *{position:relative;z-index:3}
   .hero .capa-bg,.hero .capa-frame{z-index:0}

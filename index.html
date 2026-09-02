@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus&family=Parisienne&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 
 <style>
   :root{
@@ -39,15 +40,27 @@
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background-image:url('fundo.png');
     background-repeat:repeat;
-    background-size:420px auto;
-    opacity:.16;
+    background-size:460px auto;
+    opacity:.5;
   }
   img{max-width:100%;display:block}
 
-  /* logo do casal (logo.png) */
-  .logo-casal{
-    width:clamp(120px,26vw,180px);height:auto;margin:0 auto 1.6rem;
-    display:block;
+  /* logo do casal (logo.png) dentro de um selo verde */
+  .logo-badge{
+    width:clamp(138px,30vw,186px);aspect-ratio:1;border-radius:50%;
+    margin:0 auto 1.7rem;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    background:var(--verde);
+    box-shadow:0 14px 32px rgba(71,89,76,.30);
+    border:1px solid rgba(176,137,78,.55);
+    position:relative;
+  }
+  .logo-badge::after{
+    content:"";position:absolute;inset:7px;border-radius:50%;
+    border:1px solid rgba(231,220,199,.30);pointer-events:none;
+  }
+  .logo-badge img{
+    width:112%;height:112%;object-fit:contain;
+    mix-blend-mode:screen;filter:saturate(1.15) brightness(1.12);
   }
 
   h1,h2,h3{font-weight:400;line-height:1.15}
@@ -81,8 +94,7 @@
     position:relative;min-height:100svh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:5rem 1.5rem;
-    background:
-      radial-gradient(120% 80% at 50% -10%, #fbf7ef 0%, var(--creme) 45%, var(--creme-2) 100%);
+    background:radial-gradient(72% 56% at 50% 42%, rgba(247,242,233,.92) 0%, rgba(247,242,233,.55) 55%, rgba(247,242,233,.15) 100%);
     overflow:hidden;
   }
   .hero .leaf{position:absolute;opacity:.5;pointer-events:none}
@@ -155,11 +167,16 @@
   }
 
   /* ---------- HISTÓRIA ---------- */
-  .historia{background:var(--creme)}
+  .historia{background:transparent}
   .historia .texto{
     font-family:'Cormorant Garamond',serif;
     font-size:clamp(1.15rem,3.2vw,1.4rem);
     color:var(--tinta);line-height:1.95;text-align:center;
+    background:rgba(247,242,233,.82);
+    border:1px solid rgba(176,137,78,.28);
+    border-radius:18px;
+    padding:clamp(1.8rem,5vw,3rem);
+    box-shadow:0 16px 40px rgba(71,89,76,.10);
   }
   .historia .texto p{margin-bottom:1.4rem}
   .historia .destaque{
@@ -171,7 +188,7 @@
   }
 
   /* ---------- MURAL ---------- */
-  .mural{background:var(--creme-2)}
+  .mural{background:transparent}
   .mural .fotos{
     display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.6rem;
   }
@@ -216,7 +233,7 @@
   .evento .btn-mapa:hover{background:#c79a56;transform:translateY(-2px)}
 
   /* ---------- RSVP ---------- */
-  .rsvp{background:var(--creme)}
+  .rsvp{background:transparent}
   .rsvp .card-form{
     background:#fff;border:1px solid var(--areia);border-radius:18px;
     padding:clamp(1.6rem,5vw,2.6rem);margin-top:2.4rem;
@@ -305,7 +322,7 @@
     <path d="M25 175C70 140 120 90 165 40" stroke="#6f8a72" stroke-width="1.4"/>
   </svg>
 
-  <img src="logo.png" alt="Francieli e Carlos Eduardo" class="logo-casal" onerror="this.style.display='none'" />
+  <div class="logo-badge"><img src="logo.png" alt="Monograma Francieli e Carlos Eduardo" onerror="this.parentNode.style.display='none'" /></div>
   <p class="eyebrow">Vamos nos casar</p>
   <h1 class="nomes">Francieli</h1>
   <div class="amp">&amp;</div>

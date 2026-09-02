@@ -45,22 +45,11 @@
   }
   img{max-width:100%;display:block}
 
-  /* logo do casal (logo.png) dentro de um selo verde */
-  .logo-badge{
-    width:clamp(138px,30vw,186px);aspect-ratio:1;border-radius:50%;
-    margin:0 auto 1.7rem;overflow:hidden;display:flex;align-items:center;justify-content:center;
-    background:var(--verde);
-    box-shadow:0 14px 32px rgba(71,89,76,.30);
-    border:1px solid rgba(176,137,78,.55);
-    position:relative;
-  }
-  .logo-badge::after{
-    content:"";position:absolute;inset:7px;border-radius:50%;
-    border:1px solid rgba(231,220,199,.30);pointer-events:none;
-  }
-  .logo-badge img{
-    width:112%;height:112%;object-fit:contain;
-    mix-blend-mode:screen;filter:saturate(1.15) brightness(1.12);
+  /* selo do casal (logo.png) — já vem com moldura e fundo transparente */
+  .logo-selo{
+    width:clamp(155px,33vw,215px);height:auto;
+    margin:0 auto 1.4rem;display:block;
+    filter:drop-shadow(0 8px 16px rgba(71,89,76,.16));
   }
 
   h1,h2,h3{font-weight:400;line-height:1.15}
@@ -215,11 +204,12 @@
   /* ---------- MURAL ---------- */
   .mural{background:transparent}
   .mural .fotos{
-    display:flex;justify-content:center;margin-top:2.6rem;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem;
+    max-width:760px;margin:2.6rem auto 0;
   }
   .mural figure{
-    position:relative;border-radius:18px;overflow:hidden;
-    width:min(100%,400px);aspect-ratio:4/5;background:var(--areia);
+    position:relative;border-radius:18px;overflow:hidden;margin:0;
+    aspect-ratio:4/5;background:var(--areia);
     box-shadow:0 22px 46px rgba(71,89,76,.22);
     border:1px solid rgba(176,137,78,.40);
   }
@@ -435,8 +425,9 @@
 
     .historia .texto{padding:1.5rem 1.2rem;font-size:1.1rem}
 
-    /* mural: foto única centralizada */
-    .mural figure{width:min(100%,320px);aspect-ratio:4/5}
+    /* mural: fotos empilhadas */
+    .mural .fotos{grid-template-columns:1fr;gap:1.1rem;max-width:330px}
+    .mural figure{aspect-ratio:4/5}
     .mural .legenda-foto{font-size:1.1rem}
 
     /* evento: cards empilhados */
@@ -468,7 +459,7 @@
     <path d="M25 175C70 140 120 90 165 40" stroke="#6f8a72" stroke-width="1.4"/>
   </svg>
 
-  <div class="logo-badge"><img src="logo.png" alt="Monograma Francieli e Carlos Eduardo" onerror="this.parentNode.style.display='none'" /></div>
+  <img src="logo.png" class="logo-selo" alt="Monograma Francieli e Carlos Eduardo" onerror="this.style.display='none'" />
   <p class="eyebrow">Vamos nos casar</p>
   <h1 class="nomes">Francieli</h1>
   <div class="amp">&amp;</div>
@@ -534,10 +525,13 @@
         <h2 class="titulo-sec">Um pedacinho da nossa jornada</h2>
       </div>
     </div>
-    <!-- Por enquanto, uma foto. Para adicionar mais, é só duplicar o <figure>. -->
+    <!-- Para adicionar mais fotos, é só duplicar um <figure>. -->
     <div class="fotos reveal">
       <figure>
-        <img src="foto1.jpg" alt="Francieli e Carlos Eduardo" />
+        <img src="foto2.jpg" alt="Francieli e Carlos Eduardo" style="object-position:center 28%" />
+      </figure>
+      <figure>
+        <img src="foto1.jpg" alt="Francieli e Carlos Eduardo" style="object-position:center 18%" />
       </figure>
     </div>
     <p class="legenda-foto reveal">Francieli &amp; Carlos Eduardo</p>

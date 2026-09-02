@@ -366,6 +366,27 @@
   .canto.bl{bottom:-3px;left:-3px;transform:scaleY(-1)}
   .canto.br{bottom:-3px;right:-3px;transform:scale(-1,-1)}
 
+  /* ---------- BOTÃO DE MÚSICA ---------- */
+  .btn-musica{
+    position:fixed;bottom:22px;right:22px;z-index:70;
+    width:52px;height:52px;border-radius:50%;cursor:pointer;
+    background:var(--verde);color:var(--areia);
+    border:1px solid rgba(176,137,78,.6);
+    box-shadow:0 8px 20px rgba(71,89,76,.30);
+    display:flex;align-items:center;justify-content:center;transition:transform .25s,background .25s;
+  }
+  .btn-musica:hover{transform:translateY(-2px);background:#3a4a3e}
+  .btn-musica svg{width:22px;height:22px}
+  .btn-musica .ico-som{display:none}
+  .btn-musica.tocando .ico-som{display:block}
+  .btn-musica.tocando .ico-mudo{display:none}
+  .btn-musica.pulsar::after{
+    content:"";position:absolute;inset:-3px;border-radius:50%;
+    border:2px solid var(--dourado);animation:pulso 1.8s ease-out infinite;
+  }
+  @keyframes pulso{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.55);opacity:0}}
+  @media(max-width:640px){.btn-musica{width:46px;height:46px;bottom:16px;right:16px}}
+
   /* ---------- MURAL DE RECADOS (slides) ---------- */
   .recados{background:transparent;text-align:center}
   .slider{
@@ -500,6 +521,13 @@
 </style>
 </head>
 <body>
+
+<!-- ================= MÚSICA ================= -->
+<audio id="musica" src="musica.mp3" loop preload="auto"></audio>
+<button class="btn-musica pulsar" id="btn-musica" type="button" aria-label="Ligar ou desligar a música">
+  <svg class="ico-mudo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/><line x1="3" y1="3" x2="21" y2="21" stroke-width="1.6"/></svg>
+  <svg class="ico-som" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+</button>
 
 <!-- ================= MOLDURA DECORATIVA ================= -->
 <div class="moldura" aria-hidden="true">
@@ -750,6 +778,35 @@
   // WhatsApp do casal (só números, com DDI 55 + DDD). (41) 9 8535-0234
   var WHATSAPP = "5541985350234";
   var DATA_CASAMENTO = new Date("2027-02-06T11:00:00-03:00");
+
+  /* ============ MÚSICA (toca ao abrir) ============ */
+  (function(){
+    var audio=document.getElementById('musica'), btn=document.getElementById('btn-musica');
+    if(!audio||!btn) return;
+    audio.volume=0.6;
+    var iniciado=false;
+    function setTocando(v){ btn.classList.toggle('tocando',v); if(v) btn.classList.remove('pulsar'); }
+    function tocar(){ audio.play().then(function(){iniciado=true;setTocando(true);}).catch(function(){}); }
+    function pausar(){ audio.pause(); setTocando(false); }
+
+    // tenta tocar automaticamente ao abrir
+    audio.play().then(function(){iniciado=true;setTocando(true);}).catch(function(){
+      // navegador bloqueou: começa no primeiro toque/rolagem do convidado
+      var ev=['pointerdown','touchstart','click','keydown','wheel','scroll'];
+      var start=function(e){
+        if(e&&e.target&&e.target.closest&&e.target.closest('#btn-musica')) return; // botão tem lógica própria
+        if(!iniciado) tocar();
+        limpar();
+      };
+      var limpar=function(){ ev.forEach(function(t){document.removeEventListener(t,start);}); };
+      ev.forEach(function(t){document.addEventListener(t,start,{passive:true});});
+    });
+
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(audio.paused) tocar(); else pausar();
+    });
+  })();
 
   /* ============ CONTAGEM REGRESSIVA ============ */
   var $d=document.getElementById('d'),$h=document.getElementById('h'),

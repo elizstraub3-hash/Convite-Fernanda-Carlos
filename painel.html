@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Painel dos Noivos — Francieli &amp; Carlos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --verde:#47594c; --verde-selo:#55632d; --creme:#f6f1e7; --creme-2:#efe7d8;
+    --areia:#e7dcc7; --dourado:#b0894e; --terracota:#bd7a5b; --tinta:#3a3a34; --tinta-suave:#6a685e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--creme);color:var(--tinta);font-family:'Jost',sans-serif;font-weight:300;
+    line-height:1.6;padding:1.2rem;min-height:100vh}
+  .wrap{max-width:640px;margin:0 auto}
+
+  header{text-align:center;padding:1.4rem 0 1rem}
+  header .eyebrow{font-family:'Jost';text-transform:uppercase;letter-spacing:.3em;font-size:.66rem;color:var(--dourado)}
+  header h1{font-family:'Marcellus',serif;font-weight:400;color:var(--verde);font-size:1.8rem;margin:.3rem 0}
+  header .sub{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--tinta-suave);font-size:1.1rem}
+
+  .barra{display:flex;justify-content:flex-end;margin:.4rem 0 1rem}
+  .btn-atualizar{
+    display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;border:1px solid var(--areia);
+    background:#fff;color:var(--verde);border-radius:30px;padding:.5rem 1.1rem;
+    font-family:'Jost';font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;transition:.2s;
+  }
+  .btn-atualizar:hover{background:var(--verde);color:#fff}
+  .btn-atualizar svg{width:16px;height:16px}
+  .btn-atualizar.girando svg{animation:girar .8s linear infinite}
+  @keyframes girar{to{transform:rotate(360deg)}}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.4rem}
+  .stat{background:#fff;border:1px solid var(--areia);border-radius:14px;padding:1rem .4rem;text-align:center;box-shadow:0 8px 20px rgba(71,89,76,.06)}
+  .stat b{display:block;font-family:'Marcellus',serif;font-size:1.9rem;color:var(--verde-selo);line-height:1}
+  .stat span{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:var(--tinta-suave);margin-top:.35rem;display:block}
+
+  .bloco{background:#fff;border:1px solid var(--areia);border-radius:16px;padding:1.1rem 1.1rem 1.2rem;margin-bottom:1.1rem;box-shadow:0 8px 20px rgba(71,89,76,.06)}
+  .bloco h2{font-family:'Marcellus',serif;font-weight:400;color:var(--verde);font-size:1.15rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+  .bloco h2 .cnt{color:var(--dourado);font-size:.85rem}
+
+  .item{display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+    background:var(--creme);border:1px solid var(--areia);border-radius:11px;padding:.65rem .5rem .65rem .9rem;margin-bottom:.5rem}
+  .item:last-child{margin-bottom:0}
+  .item .info{min-width:0}
+  .item .nome{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--tinta);display:block;line-height:1.25}
+  .item .sub{font-size:.76rem;color:var(--tinta-suave)}
+  .item .msg{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--tinta);display:block;line-height:1.35}
+  .excluir{flex:none;border:none;cursor:pointer;background:rgba(189,122,91,.14);color:var(--terracota);
+    border-radius:9px;padding:.5rem .75rem;font-family:'Jost';font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;transition:.2s}
+  .excluir:hover{background:var(--terracota);color:#fff}
+  .excluir:disabled{opacity:.5;cursor:default}
+  .vazio{text-align:center;color:var(--tinta-suave);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem;padding:.8rem}
+
+  .modo{text-align:center;font-size:.72rem;color:var(--tinta-suave);margin-top:.5rem;line-height:1.5}
+  footer{text-align:center;font-size:.66rem;color:var(--tinta-suave);opacity:.7;margin-top:1.4rem}
+  @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Painel dos noivos</p>
+    <h1>Confirmações &amp; recados</h1>
+    <p class="sub">Francieli &amp; Carlos Eduardo</p>
+  </header>
+
+  <div class="barra">
+    <button class="btn-atualizar" id="atualizar" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-2.6-6.4M21 3v6h-6"/></svg>
+      Atualizar
+    </button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bloco">
+    <h2>Quem vai <span class="cnt" id="c-count"></span></h2>
+    <div id="lista-vao"><div class="vazio">Carregando…</div></div>
+  </div>
+
+  <div class="bloco" id="nao-wrap" hidden>
+    <h2>Não poderão ir <span class="cnt" id="n-count"></span></h2>
+    <div id="lista-nao"></div>
+  </div>
+
+  <div class="bloco">
+    <h2>Recados <span class="cnt" id="r-count"></span></h2>
+    <div id="lista-recados"><div class="vazio">Carregando…</div></div>
+  </div>
+
+  <p class="modo" id="modo"></p>
+  <footer>Página privada dos noivos · Feito por Elizandra Straub</footer>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+  /* ====== MESMAS CHAVES DO CONVITE (Firebase) ======
+     Cole aqui o mesmo firebaseConfig usado no index.html. */
+  var FIREBASE_CONFIG = {
+    apiKey: "COLE_AQUI",
+    authDomain: "COLE_AQUI",
+    projectId: "COLE_AQUI",
+    storageBucket: "COLE_AQUI",
+    messagingSenderId: "COLE_AQUI",
+    appId: "COLE_AQUI"
+  };
+  var USA_FIREBASE = FIREBASE_CONFIG.apiKey.indexOf("COLE_AQUI")<0 && typeof firebase!=="undefined";
+  var fdb=null;
+  if(USA_FIREBASE){ try{ firebase.initializeApp(FIREBASE_CONFIG); fdb=firebase.firestore(); }
+    catch(e){ USA_FIREBASE=false; } }
+
+  var DB={
+    list:function(col){
+      if(USA_FIREBASE) return fdb.collection(col).orderBy('ts','desc').get()
+        .then(function(qs){var a=[];qs.forEach(function(d){var o=d.data();o.id=d.id;a.push(o);});return a;});
+      var k='fc_'+col, a=JSON.parse(localStorage.getItem(k)||'[]'); a.sort(function(x,y){return (y.ts||0)-(x.ts||0);});
+      return Promise.resolve(a);
+    },
+    del:function(col,id){
+      if(USA_FIREBASE) return fdb.collection(col).doc(id).delete();
+      var k='fc_'+col, a=JSON.parse(localStorage.getItem(k)||'[]').filter(function(x){return x.id!==id;});
+      try{localStorage.setItem(k,JSON.stringify(a));}catch(e){} return Promise.resolve();
+    }
+  };
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+    return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+  function item(col,x,sub,isMsg){
+    return '<div class="item"><div class="info"><span class="nome">'+esc(x.nome||x.autor)+'</span>'+
+      (sub?('<span class="'+(isMsg?'msg':'sub')+'">'+sub+'</span>'):'')+'</div>'+
+      '<button class="excluir" data-col="'+col+'" data-id="'+esc(x.id)+'">Excluir</button></div>';
+  }
+  function render(){
+    Promise.all([DB.list('confirmacoes'),DB.list('recados')]).then(function(res){
+      var conf=res[0], rec=res[1];
+      var vao=conf.filter(function(x){return x.vai;});
+      var nao=conf.filter(function(x){return !x.vai;});
+      var pessoas=vao.reduce(function(a,x){return a+(parseInt(x.qtd)||1);},0);
+
+      document.getElementById('stats').innerHTML=
+        '<div class="stat"><b>'+vao.length+'</b><span>Confirmados</span></div>'+
+        '<div class="stat"><b>'+pessoas+'</b><span>Pessoas</span></div>'+
+        '<div class="stat"><b>'+nao.length+'</b><span>Não vão</span></div>'+
+        '<div class="stat"><b>'+rec.length+'</b><span>Recados</span></div>';
+
+      document.getElementById('c-count').textContent=vao.length?('· '+pessoas+' pessoa(s)'):'';
+      document.getElementById('lista-vao').innerHTML=vao.length
+        ? vao.map(function(x){return item('confirmacoes',x,(x.qtd||1)+' pessoa'+((x.qtd||1)>1?'s':''));}).join('')
+        : '<div class="vazio">Ninguém confirmou ainda 🤍</div>';
+
+      document.getElementById('nao-wrap').hidden=!nao.length;
+      if(nao.length){
+        document.getElementById('n-count').textContent='· '+nao.length;
+        document.getElementById('lista-nao').innerHTML=nao.map(function(x){return item('confirmacoes',x,'Não poderá ir');}).join('');
+      }
+
+      document.getElementById('r-count').textContent=rec.length?('· '+rec.length):'';
+      document.getElementById('lista-recados').innerHTML=rec.length
+        ? rec.map(function(x){return item('recados',x,esc(x.msg),true);}).join('')
+        : '<div class="vazio">Nenhum recado ainda 🤍</div>';
+
+      document.getElementById('modo').textContent=USA_FIREBASE
+        ? 'Conectado ao banco — mostra todos os convidados.'
+        : '⚠ Firebase ainda não configurado: mostrando só as respostas deste aparelho.';
+    }).catch(function(err){
+      document.getElementById('lista-vao').innerHTML='<div class="vazio">Erro ao carregar. Toque em Atualizar.</div>';
+      console.warn(err);
+    });
+  }
+  document.body.addEventListener('click',function(e){
+    var b=e.target.closest('.excluir'); if(!b) return;
+    if(!confirm('Excluir este item? Esta ação não pode ser desfeita.')) return;
+    b.disabled=true;
+    DB.del(b.dataset.col,b.dataset.id).then(render)
+      .catch(function(err){b.disabled=false;alert('Não consegui excluir. Tente novamente.');console.warn(err);});
+  });
+  document.getElementById('atualizar').addEventListener('click',function(){
+    var self=this; self.classList.add('girando'); render();
+    setTimeout(function(){self.classList.remove('girando');},800);
+  });
+  render();
+</script>
+</body>
+</html>

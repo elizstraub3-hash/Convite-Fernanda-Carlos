@@ -44,6 +44,7 @@
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
   html{scroll-behavior:smooth}
   body{
     background:var(--creme);
@@ -404,6 +405,40 @@
     50%{box-shadow:0 6px 16px rgba(71,89,76,.12),0 0 0 7px rgba(176,137,78,0)}
   }
 
+  /* ---------- PRESENTE / PIX ---------- */
+  .presente{background:transparent;text-align:center}
+  .presente .presente-msg{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:clamp(1.15rem,3.2vw,1.4rem);color:var(--tinta);line-height:1.7;
+    max-width:560px;margin:1.2rem auto 0;
+  }
+  .pix-card{
+    display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;
+    background:#fff;border:1px solid var(--areia);border-radius:18px;
+    padding:clamp(1.4rem,4vw,2rem);margin:1.8rem auto 0;max-width:520px;
+    box-shadow:0 16px 40px rgba(71,89,76,.12);
+  }
+  .pix-qr{
+    width:180px;height:180px;flex:none;border-radius:12px;overflow:hidden;
+    background:var(--creme);border:1px solid var(--areia);
+    display:flex;align-items:center;justify-content:center;padding:8px;
+  }
+  .pix-qr img,.pix-qr canvas{width:100%!important;height:100%!important;display:block}
+  .pix-info{text-align:left;min-width:200px;flex:1}
+  .pix-info .pix-label{font-family:'Jost';text-transform:uppercase;letter-spacing:.16em;font-size:.62rem;color:var(--tinta-suave)}
+  .pix-info .pix-chave{font-family:'Marcellus',serif;color:var(--verde);font-size:1.25rem;word-break:break-word;margin:.2rem 0 .1rem}
+  .pix-info .pix-nome{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--tinta-suave);font-size:1rem;margin-bottom:1rem}
+  .btn-pix{
+    display:block;width:100%;cursor:pointer;border:none;margin-top:.6rem;
+    background:var(--verde);color:#fff;padding:.85rem 1rem;border-radius:40px;
+    font-family:'Jost';font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;transition:.25s;
+  }
+  .btn-pix:hover{background:#3a4a3e;transform:translateY(-1px)}
+  .btn-pix.alt{background:transparent;color:var(--verde);border:1px solid var(--verde)}
+  .btn-pix.alt:hover{background:var(--verde);color:#fff}
+  .pix-ok{display:block;margin-top:.7rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--dourado);font-size:1rem}
+  @media(max-width:520px){.pix-card{flex-direction:column;gap:1.2rem} .pix-info{text-align:center;width:100%}}
+
   /* ---------- MURAL DE RECADOS (slides) ---------- */
   .recados{background:transparent;text-align:center}
   .slider{
@@ -762,6 +797,31 @@
   </div>
 </section>
 
+<!-- ================= PRESENTE / PIX ================= -->
+<section class="presente" id="presente" hidden>
+  <div class="wrap center">
+    <div class="reveal">
+      <div class="bloco-titulo">
+        <p class="eyebrow">Presente</p>
+        <h2 class="titulo-sec">Sugestão de presente</h2>
+      </div>
+    </div>
+    <p class="presente-msg reveal">A presença de vocês já é o nosso maior presente. Mas, se desejarem nos abençoar com um carinho a mais, deixamos aqui o nosso Pix, com todo amor. 🤍</p>
+
+    <div class="pix-card reveal">
+      <div class="pix-qr" id="pix-qr" aria-label="QR Code do Pix"></div>
+      <div class="pix-info">
+        <p class="pix-label">Chave Pix</p>
+        <p class="pix-chave" id="pix-chave">—</p>
+        <p class="pix-nome" id="pix-nome"></p>
+        <button class="btn-pix" id="pix-copiar" type="button">Copiar chave Pix</button>
+        <button class="btn-pix alt" id="pix-copiar-codigo" type="button" hidden>Copiar código (Pix copia e cola)</button>
+        <span class="pix-ok" id="pix-ok" hidden>Copiado! 🤍</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= MURAL DE RECADOS ================= -->
 <section class="recados">
   <div class="wrap">
@@ -812,12 +872,23 @@
 <!-- Firebase (banco de dados das confirmações e recados) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<!-- Gerador de QR Code (para o Pix) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
   /* ============ CONFIG ============ */
   // WhatsApp do casal (só números, com DDI 55 + DDD). (41) 9 8535-0234
   var WHATSAPP = "5541985350234";
   var DATA_CASAMENTO = new Date("2027-02-06T10:00:00-03:00");
+
+  /* ====== PIX (presente) ======
+     Preencha com os dados do casal. Enquanto a chave estiver "COLE_AQUI",
+     a seção Presente fica escondida. */
+  var PIX = {
+    chave: "COLE_AQUI",   // chave Pix (CPF, e-mail, telefone ou aleatória)
+    nome:  "COLE_AQUI",   // nome do recebedor (como está no banco)
+    cidade:"COLE_AQUI"    // cidade do recebedor
+  };
 
   /* ====== FIREBASE ======
      Cole aqui as chaves do seu projeto (Firebase → Configurações do projeto →
@@ -987,6 +1058,64 @@
   });
   renderRec();
   carregarRecados();
+
+  /* ============ PRESENTE / PIX ============ */
+  (function(){
+    var sec=document.getElementById('presente');
+    if(!sec) return;
+    if(!PIX.chave || PIX.chave.indexOf('COLE_AQUI')>=0){ sec.hidden=true; return; }
+    sec.hidden=false;
+
+    function limpa(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase();}
+    function tlv(id,v){return id+String(v.length).padStart(2,'0')+v;}
+    function crc16(str){
+      var crc=0xFFFF;
+      for(var i=0;i<str.length;i++){ crc^=str.charCodeAt(i)<<8;
+        for(var j=0;j<8;j++){ crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1); crc&=0xFFFF; } }
+      return crc.toString(16).toUpperCase().padStart(4,'0');
+    }
+    function payloadPix(){
+      var mai=tlv('00','br.gov.bcb.pix')+tlv('01',PIX.chave);
+      var p=tlv('00','01')+tlv('26',mai)+tlv('52','0000')+tlv('53','986')+
+            tlv('58','BR')+tlv('59',limpa(PIX.nome).substring(0,25))+
+            tlv('60',limpa(PIX.cidade).substring(0,15))+tlv('62',tlv('05','***'));
+      p+='6304';
+      return p+crc16(p);
+    }
+
+    document.getElementById('pix-chave').textContent=PIX.chave;
+    document.getElementById('pix-nome').textContent=PIX.nome;
+
+    var codigo=payloadPix();
+    // QR Code (se a lib carregou)
+    try{
+      if(typeof QRCode!=='undefined'){
+        new QRCode(document.getElementById('pix-qr'),{
+          text:codigo,width:180,height:180,
+          colorDark:'#47594c',colorLight:'#ffffff',
+          correctLevel:QRCode.CorrectLevel.M
+        });
+      } else {
+        // fallback: imagem via serviço, se a lib não carregar
+        var img=document.createElement('img');
+        img.alt='QR Code Pix';
+        img.src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(codigo);
+        document.getElementById('pix-qr').appendChild(img);
+      }
+    }catch(e){ console.warn(e); }
+
+    // mostra o botão de copiar código e liga os copiadores
+    var btnCod=document.getElementById('pix-copiar-codigo'); btnCod.hidden=false;
+    var ok=document.getElementById('pix-ok');
+    function copiar(txt){
+      var done=function(){ ok.hidden=false; setTimeout(function(){ok.hidden=true;},2500); };
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done).catch(function(){prompt('Copie:',txt);});
+      } else { prompt('Copie:',txt); }
+    }
+    document.getElementById('pix-copiar').addEventListener('click',function(){copiar(PIX.chave);});
+    btnCod.addEventListener('click',function(){copiar(codigo);});
+  })();
 
   /* ============ REVEAL ao rolar ============ */
   var io=new IntersectionObserver(function(entries){

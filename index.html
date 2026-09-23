@@ -873,9 +873,6 @@
 <!-- Firebase (banco de dados das confirmações e recados) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<!-- Gerador de QR Code (para o Pix) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <script>
   /* ============ CONFIG ============ */
   // WhatsApp do casal (só números, com DDI 55 + DDD). (41) 9 8535-0234
@@ -886,9 +883,9 @@
      Preencha com os dados do casal. Enquanto a chave estiver "COLE_AQUI",
      a seção Presente fica escondida. */
   var PIX = {
-    chave: "COLE_AQUI",   // chave Pix (CPF, e-mail, telefone ou aleatória)
-    nome:  "COLE_AQUI",   // nome do recebedor (como está no banco)
-    cidade:"COLE_AQUI"    // cidade do recebedor
+    chave: "41996767834",       // chave Pix (celular)
+    nome:  "Carlos Eduardo",    // nome do recebedor
+    qrImagem: "pix-qr.png"      // imagem do QR Code (do banco)
   };
 
   /* ====== FIREBASE ======
@@ -1062,68 +1059,47 @@
 
   /* ============ PRESENTE / PIX ============ */
   (function(){
-    var sec=document.getElementById('presente');
-    if(!sec) return;
+    var sec=document.getElementById('presente'); if(!sec) return;
     sec.hidden=false;
-    // enquanto não houver dados do Pix, mostra a seção em modo "em breve"
-    if(!PIX.chave || PIX.chave.indexOf('COLE_AQUI')>=0){
-      document.getElementById('pix-chave').textContent='Em breve 🤍';
-      document.getElementById('pix-nome').textContent='';
-      document.getElementById('pix-qr').innerHTML='<span class="pix-embreve">QR Code<br>em breve</span>';
-      document.getElementById('pix-copiar').hidden=true;
-      document.getElementById('pix-copiar-codigo').hidden=true;
-      return;
+    var qrEl=document.getElementById('pix-qr'),
+        chaveEl=document.getElementById('pix-chave'),
+        nomeEl=document.getElementById('pix-nome'),
+        btn=document.getElementById('pix-copiar'),
+        btnCod=document.getElementById('pix-copiar-codigo'),
+        ok=document.getElementById('pix-ok');
+
+    var temChave=PIX.chave && PIX.chave.indexOf('COLE_AQUI')<0;
+    var temImg=PIX.qrImagem && PIX.qrImagem.indexOf('COLE_AQUI')<0;
+
+    if(!temChave && !temImg){
+      chaveEl.textContent='Em breve 🤍'; nomeEl.textContent='';
+      qrEl.innerHTML='<span class="pix-embreve">QR Code<br>em breve</span>';
+      btn.hidden=true; btnCod.hidden=true; return;
     }
 
-    function limpa(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase();}
-    function tlv(id,v){return id+String(v.length).padStart(2,'0')+v;}
-    function crc16(str){
-      var crc=0xFFFF;
-      for(var i=0;i<str.length;i++){ crc^=str.charCodeAt(i)<<8;
-        for(var j=0;j<8;j++){ crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1); crc&=0xFFFF; } }
-      return crc.toString(16).toUpperCase().padStart(4,'0');
-    }
-    function payloadPix(){
-      var mai=tlv('00','br.gov.bcb.pix')+tlv('01',PIX.chave);
-      var p=tlv('00','01')+tlv('26',mai)+tlv('52','0000')+tlv('53','986')+
-            tlv('58','BR')+tlv('59',limpa(PIX.nome).substring(0,25))+
-            tlv('60',limpa(PIX.cidade).substring(0,15))+tlv('62',tlv('05','***'));
-      p+='6304';
-      return p+crc16(p);
+    // QR: imagem do banco
+    if(temImg){
+      var img=document.createElement('img');
+      img.alt='QR Code Pix — '+(PIX.nome||'');
+      img.onerror=function(){ qrEl.innerHTML='<span class="pix-embreve">QR Code<br>indisponível</span>'; };
+      img.src=PIX.qrImagem;
+      qrEl.appendChild(img);
+    } else {
+      qrEl.innerHTML='<span class="pix-embreve">Use a chave Pix<br>abaixo</span>';
     }
 
-    document.getElementById('pix-chave').textContent=PIX.chave;
-    document.getElementById('pix-nome').textContent=PIX.nome;
+    chaveEl.textContent=temChave?PIX.chave:'—';
+    nomeEl.textContent=PIX.nome||'';
+    btnCod.hidden=true; // usando o QR oficial do banco (sem código copia e cola)
 
-    var codigo=payloadPix();
-    // QR Code (se a lib carregou)
-    try{
-      if(typeof QRCode!=='undefined'){
-        new QRCode(document.getElementById('pix-qr'),{
-          text:codigo,width:180,height:180,
-          colorDark:'#47594c',colorLight:'#ffffff',
-          correctLevel:QRCode.CorrectLevel.M
-        });
-      } else {
-        // fallback: imagem via serviço, se a lib não carregar
-        var img=document.createElement('img');
-        img.alt='QR Code Pix';
-        img.src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(codigo);
-        document.getElementById('pix-qr').appendChild(img);
-      }
-    }catch(e){ console.warn(e); }
-
-    // mostra o botão de copiar código e liga os copiadores
-    var btnCod=document.getElementById('pix-copiar-codigo'); btnCod.hidden=false;
-    var ok=document.getElementById('pix-ok');
     function copiar(txt){
       var done=function(){ ok.hidden=false; setTimeout(function(){ok.hidden=true;},2500); };
       if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(txt).then(done).catch(function(){prompt('Copie:',txt);});
-      } else { prompt('Copie:',txt); }
+        navigator.clipboard.writeText(txt).then(done).catch(function(){prompt('Copie a chave Pix:',txt);});
+      } else { prompt('Copie a chave Pix:',txt); }
     }
-    document.getElementById('pix-copiar').addEventListener('click',function(){copiar(PIX.chave);});
-    btnCod.addEventListener('click',function(){copiar(codigo);});
+    if(temChave){ btn.hidden=false; btn.addEventListener('click',function(){copiar(PIX.chave);}); }
+    else { btn.hidden=true; }
   })();
 
   /* ============ REVEAL ao rolar ============ */

@@ -424,6 +424,7 @@
     display:flex;align-items:center;justify-content:center;padding:8px;
   }
   .pix-qr img,.pix-qr canvas{width:100%!important;height:100%!important;display:block}
+  .pix-embreve{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;color:var(--tinta-suave);text-align:center;line-height:1.6}
   .pix-info{text-align:left;min-width:200px;flex:1}
   .pix-info .pix-label{font-family:'Jost';text-transform:uppercase;letter-spacing:.16em;font-size:.62rem;color:var(--tinta-suave)}
   .pix-info .pix-chave{font-family:'Marcellus',serif;color:var(--verde);font-size:1.25rem;word-break:break-word;margin:.2rem 0 .1rem}
@@ -798,7 +799,7 @@
 </section>
 
 <!-- ================= PRESENTE / PIX ================= -->
-<section class="presente" id="presente" hidden>
+<section class="presente" id="presente">
   <div class="wrap center">
     <div class="reveal">
       <div class="bloco-titulo">
@@ -1063,8 +1064,16 @@
   (function(){
     var sec=document.getElementById('presente');
     if(!sec) return;
-    if(!PIX.chave || PIX.chave.indexOf('COLE_AQUI')>=0){ sec.hidden=true; return; }
     sec.hidden=false;
+    // enquanto não houver dados do Pix, mostra a seção em modo "em breve"
+    if(!PIX.chave || PIX.chave.indexOf('COLE_AQUI')>=0){
+      document.getElementById('pix-chave').textContent='Em breve 🤍';
+      document.getElementById('pix-nome').textContent='';
+      document.getElementById('pix-qr').innerHTML='<span class="pix-embreve">QR Code<br>em breve</span>';
+      document.getElementById('pix-copiar').hidden=true;
+      document.getElementById('pix-copiar-codigo').hidden=true;
+      return;
+    }
 
     function limpa(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase();}
     function tlv(id,v){return id+String(v.length).padStart(2,'0')+v;}
